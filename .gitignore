@@ -7,3 +7,6 @@ data/media/
 firebase-debug.log
 firebase-debug.*.log
 .DS_Store
+
+# Local Netlify folder
+.netlify
