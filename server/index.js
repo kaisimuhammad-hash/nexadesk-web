@@ -34,7 +34,9 @@ const accountRoom = (accountId) => `acct:${accountId}`;
 app.disable('x-powered-by');
 app.set('trust proxy', 1);
 app.use(express.json({ limit: '1mb' }));
-app.use('/api', createApiRouter({ store, wa, auth, presence }));
+const apiRouter = createApiRouter({ store, wa, auth, presence });
+app.use('/api', apiRouter);
+app.use('/.netlify/functions/api', apiRouter);
 
 const distDir = path.join(ROOT, 'dist');
 const indexFile = path.join(distDir, 'index.html');

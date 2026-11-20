@@ -14,5 +14,14 @@ export const handler = async (event, context) => {
       console.warn('[netlify:wa] Restore gagal:', err.message);
     }
   }
-  return handlerFn(event, context);
+  try {
+    return await handlerFn(event, context);
+  } catch (err) {
+    console.error('[netlify:handler] Error:', err);
+    return {
+      statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: err.message || 'Internal Server Error' }),
+    };
+  }
 };
